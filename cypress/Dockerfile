@@ -1,13 +1,14 @@
+# Imagem base derivada do Node
 FROM node
 
-ENV NO_UPDATE_NOTIFIER=1
-
-EXPOSE 3000
-EXPOSE 5000
-
+# Diretório de trabalho
 WORKDIR /app
 
-ADD . .
-RUN npm install --silent --loglevel=error
+# Comando para copiar os arquivos para a pasta /app da imagem
+COPY . /app
 
-CMD ["npm", "run", "exec"]
+# Comando para instalar as dependências
+RUN npm install
+
+# Comando para inicializar (executar) a aplicação
+CMD ["node", "/app/services/shipping/index.js"]
